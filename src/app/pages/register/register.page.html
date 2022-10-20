@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Supa Chat</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content scrollY="false">
+  <ion-card>
+    <ion-card-content>
+      <form (ngSubmit)="createAccount()" [formGroup]="credentials">
+        <ion-item>
+          <ion-label position="stacked">Your Email</ion-label>
+          <ion-input type="email" inputmode="email" placeholder="Email" formControlName="email"></ion-input>
+          <ion-note slot="error" *ngIf="(email.dirty || email.touched) && email.errors">Please insert a valid email</ion-note>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Password</ion-label>
+          <ion-input type="password" placeholder="Password" formControlName="password"></ion-input>
+          <ion-note slot="error" *ngIf="(password.dirty || password.touched) && password.errors?.required">Please insert a password</ion-note>
+          <ion-note slot="error" *ngIf="(password.dirty || password.touched) && password.errors?.minlength">Minlength 6 characters</ion-note>
+        </ion-item>
+        <ion-button type="submit" expand="block" strong="true" [disabled]="!credentials.valid">Create my account</ion-button>
+      </form>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

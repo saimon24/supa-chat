@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/groups"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ group?.title}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-row *ngFor="let message of messages">
+    <ion-col size="10" *ngIf="message.users.id !== currentUserId" class="message other-message">
+      <span>{{ message.text }} </span>
+
+      <div class="time ion-text-right"><br />{{ message.created_at | date:'shortTime' }}</div>
+    </ion-col>
+
+    <ion-col offset="2" size="10" *ngIf="message.users.id === currentUserId" class="message my-message">
+      <span>{{ message.text }} </span>
+      <div class="time ion-text-right"><br />{{ message.created_at | date:'shortTime' }}</div>
+    </ion-col>
+  </ion-row>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar color="light">
+    <ion-row class="ion-align-items-center">
+      <ion-col size="10">
+        <ion-textarea class="message-input" autoGrow="true" rows="1" [(ngModel)]="messageText"></ion-textarea>
+      </ion-col>
+      <ion-col size="2" class="ion-text-center">
+        <ion-button fill="clear" (click)="sendMessage()">
+          <ion-icon slot="icon-only" name="send-outline" color="primary" size="large"></ion-icon>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-footer>

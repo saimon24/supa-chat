@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Supa Chat Groups</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="signOut()" *ngIf="user | async"> <ion-icon name="log-out-outline" slot="icon-only"></ion-icon> </ion-button>
+
+      <ion-button (click)="openLogin()" *ngIf="(user | async) === false"> Sign in </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let group of groups" [routerLink]="[group.id]" button>
+      <ion-label
+        >{{group.title }}
+        <p>By {{group.users.email}}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" *ngIf="user | async">
+    <ion-fab-button (click)="createGroup()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>
