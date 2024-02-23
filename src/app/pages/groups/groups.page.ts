@@ -11,7 +11,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GroupsPage implements OnInit {
   user = this.authService.getCurrentUser();
-  groups = [];
+  groups: { title: any; id: any; users: { email: any; }[]; }[] | null = null;
 
   constructor(
     private authService: AuthService,
