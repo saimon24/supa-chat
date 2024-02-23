@@ -79,7 +79,7 @@ export class AuthService {
     if (this.currentUser.value) {
       return (this.currentUser.value as User).id;
     } else {
-      return null;
+      return '';
     }
   }
 
