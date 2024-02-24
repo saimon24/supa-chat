@@ -35,7 +35,7 @@ export class DataService {
 
   async createGroup(title) {
     const newgroup = {
-      creator: (await this.supabase.auth.getUser()).data.user.id,
+      creator: (await this.supabase.auth.getUser()).data.user?.id,
       title,
     };
 
