@@ -33,7 +33,7 @@ export class DataService {
       .then((result) => result.data);
   }
 
-  async createGroup(title) {
+  async createGroup(title: string) {
     const newgroup = {
       creator: (await this.supabase.auth.getUser()).data.user?.id,
       title,
@@ -42,7 +42,7 @@ export class DataService {
     return this.supabase.from(GROUPS_DB).insert(newgroup).select().single();
   }
 
-  getGroupById(id) {
+  getGroupById(id: string) {
     return this.supabase
       .from(GROUPS_DB)
       .select(`created_at, title, id, users:creator ( email, id )`)
@@ -51,7 +51,7 @@ export class DataService {
       .then((result) => result.data);
   }
 
-  async addGroupMessage(groupId, message) {
+  async addGroupMessage(groupId: string, message: string) {
     const newMessage = {
       text: message,
       user_id: (await this.supabase.auth.getUser()).data.user.id,
@@ -63,7 +63,7 @@ export class DataService {
     return this.supabase.from(MESSAGES_DB).insert(newMessage);
   }
 
-  getGroupMessages(groupId) {
+  getGroupMessages(groupId: string) {
     // TODO: Limit and sort
     return this.supabase
       .from(MESSAGES_DB)
@@ -72,7 +72,7 @@ export class DataService {
       .then((result) => result.data);
   }
 
-  listenToGroup(groupId) {
+  listenToGroup(groupId: string) {
     const changes = new Subject();
 
     this.realtimeChannel = this.supabase
