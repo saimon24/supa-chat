@@ -19,8 +19,8 @@
         <ion-item>
           <ion-label position="stacked">Password</ion-label>
           <ion-input type="password" placeholder="Password" formControlName="password"></ion-input>
-          <ion-note slot="error" *ngIf="(password.dirty || password.touched) && password.errors?.required">Please insert a password</ion-note>
-          <ion-note slot="error" *ngIf="(password.dirty || password.touched) && password.errors?.minlength">Minlength 6 characters</ion-note>
+          <ion-note slot="error" *ngIf="(password.dirty || password.touched) && password.errors?.['required']">Please insert a password</ion-note>
+          <ion-note slot="error" *ngIf="(password.dirty || password.touched) && password.errors?.['minlength']">Minlength 6 characters</ion-note>
         </ion-item>
         <ion-button type="submit" expand="block" strong="true" [disabled]="!credentials.valid">Create my account</ion-button>
       </form>
