@@ -13,8 +13,11 @@
   <ion-list>
     <ion-item *ngFor="let group of groups" [routerLink]="[group.id]" button>
       <ion-label
-        >{{group.title }}
-        <p>By {{group.users.email}}</p>
+        >{{ group.title }}
+        <p>By <ng-container *ngFor="let user of group.users">
+            {{ user.email }}
+          </ng-container>
+        </p>
       </ion-label>
     </ion-item>
   </ion-list>
