@@ -123,7 +123,7 @@ export class LoginPage {
     await alert.present();
   }
 
-  async showAlert(title, msg) {
+  async showAlert(title: string, msg: string) {
     const alert = await this.alertController.create({
       header: title,
       message: msg,
