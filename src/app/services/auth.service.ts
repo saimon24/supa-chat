@@ -23,7 +23,9 @@ export class AuthService {
       if (event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED') {
         console.log('SET USER');
 
-        this.currentUser.next(sess.user);
+        if (sess && sess.user) {
+          this.currentUser.next(sess.user)
+        }
       } else {
         this.currentUser.next(false);
       }
