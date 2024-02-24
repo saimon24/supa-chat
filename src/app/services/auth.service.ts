@@ -11,7 +11,7 @@ import { environment } from '../../environments/environment';
 })
 export class AuthService {
   private supabase: SupabaseClient;
-  private currentUser: BehaviorSubject<User | boolean> = new BehaviorSubject(null);
+  private currentUser: BehaviorSubject<User | boolean> = new BehaviorSubject(false as User | boolean);
 
   constructor(private router: Router) {
     this.supabase = createClient(environment.supabaseUrl, environment.supabaseKey);
