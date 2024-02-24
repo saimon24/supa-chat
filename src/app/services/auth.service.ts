@@ -11,7 +11,7 @@ import { environment } from '../../environments/environment';
 })
 export class AuthService {
   private supabase: SupabaseClient;
-  private currentUser: BehaviorSubject<User | boolean> = new BehaviorSubject(null);
+  private currentUser: BehaviorSubject<User | boolean> = new BehaviorSubject(false as User | boolean);
 
   constructor(private router: Router) {
     this.supabase = createClient(environment.supabaseUrl, environment.supabaseKey);
@@ -23,7 +23,9 @@ export class AuthService {
       if (event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED') {
         console.log('SET USER');
 
-        this.currentUser.next(sess.user);
+        if (sess && sess.user) {
+          this.currentUser.next(sess.user)
+        }
       } else {
         this.currentUser.next(false);
       }
@@ -47,11 +49,11 @@ export class AuthService {
     }
   }
 
-  signUp(credentials: { email; password }) {
+  signUp(credentials: { email: string; password: string }) {
     return this.supabase.auth.signUp(credentials);
   }
 
-  signIn(credentials: { email; password }) {
+  signIn(credentials: { email: string; password: string }) {
     return this.supabase.auth.signInWithPassword(credentials);
   }
 
@@ -62,7 +64,7 @@ export class AuthService {
     return this.supabase.auth.signInWithOtp({ email, options: { emailRedirectTo: redirectTo } });
   }
 
-  sendPwReset(email) {
+  sendPwReset(email: string) {
     return this.supabase.auth.resetPasswordForEmail(email);
   }
 
@@ -79,7 +81,7 @@ export class AuthService {
     if (this.currentUser.value) {
       return (this.currentUser.value as User).id;
     } else {
-      return null;
+      return '';
     }
   }
 

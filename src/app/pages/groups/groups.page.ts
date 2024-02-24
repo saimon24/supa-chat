@@ -11,7 +11,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GroupsPage implements OnInit {
   user = this.authService.getCurrentUser();
-  groups = [];
+  groups: { title: any; id: any; users: { email: any; }[]; }[] | null = null;
 
   constructor(
     private authService: AuthService,
@@ -25,7 +25,7 @@ export class GroupsPage implements OnInit {
   ngOnInit() {}
 
   async ionViewWillEnter() {
-    this.groups = await this.data.getGroups();
+    this.groups = await this.data.getGroups() as { title: any; id: any; users: { email: any; }[]; }[];
     console.log('groups: ', this.groups);
   }
 
@@ -54,7 +54,7 @@ export class GroupsPage implements OnInit {
             const newGroup = await this.data.createGroup(data.title);
             console.log('new group: ', newGroup);
             if (newGroup) {
-              this.groups = await this.data.getGroups();
+              this.groups = await this.data.getGroups() as { title: any; id: any; users: { email: any; }[]; }[];
               await loading.dismiss();
 
               this.router.navigateByUrl(`/groups/${newGroup.data.id}`);
