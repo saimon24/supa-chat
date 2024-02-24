@@ -47,11 +47,11 @@ export class AuthService {
     }
   }
 
-  signUp(credentials: { email; password }) {
+  signUp(credentials: { email: string; password: string }) {
     return this.supabase.auth.signUp(credentials);
   }
 
-  signIn(credentials: { email; password }) {
+  signIn(credentials: { email: string; password: string }) {
     return this.supabase.auth.signInWithPassword(credentials);
   }
 
@@ -62,7 +62,7 @@ export class AuthService {
     return this.supabase.auth.signInWithOtp({ email, options: { emailRedirectTo: redirectTo } });
   }
 
-  sendPwReset(email) {
+  sendPwReset(email: string) {
     return this.supabase.auth.resetPasswordForEmail(email);
   }
 
